@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useState, useCallback, useEffect } from "react";
 import { BingoBoard } from "../components/BingoBoard";
 import { checkWinningLines } from "../utils/gameUtils";
+import { AnimatedBingoLetter } from "../components/AnimatedBingoLetter";
 
 export default () => {
   const [numbers, setNumbers] = useState<number[]>(() =>
@@ -32,20 +33,18 @@ export default () => {
   }, [selectedCells]);
 
   const bingoText = "BINGO";
+  const ANIMATION_DELAY = 150; // milliseconds between each letter animation
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         {bingoText.split("").map((letter, index) => (
-          <Text
+          <AnimatedBingoLetter
             key={index}
-            style={[
-              styles.titleLetter,
-              index < completedLines && styles.strikeThrough,
-            ]}
-          >
-            {letter}
-          </Text>
+            letter={letter}
+            isStriked={index < completedLines}
+            delay={index * ANIMATION_DELAY}
+          />
         ))}
       </View>
       <BingoBoard
@@ -71,17 +70,9 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
     marginBottom: 20,
-  },
-  titleLetter: {
-    fontSize: 48,
-    fontWeight: "bold",
-    color: "#2196F3",
-    marginHorizontal: 4,
-  },
-  strikeThrough: {
-    textDecorationLine: "line-through",
-    textDecorationStyle: "solid",
-    textDecorationColor: "#FF0000",
+    justifyContent: "center",
+    width: "100%",
+    paddingHorizontal: 10,
   },
   button: {
     backgroundColor: "#2196F3",
