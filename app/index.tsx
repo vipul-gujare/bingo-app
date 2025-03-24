@@ -12,6 +12,7 @@ export default () => {
     Array(25).fill(false)
   );
   const [completedLines, setCompletedLines] = useState<number>(0);
+  const hasWon = completedLines >= 5;
 
   const handleNewGame = useCallback(() => {
     setNumbers((prev) => [...prev].sort(() => Math.random() - 0.5));
@@ -20,6 +21,7 @@ export default () => {
   }, []);
 
   const handleCellPress = (index: number) => {
+    if (hasWon) return;
     setSelectedCells((prev) => {
       const newSelected = [...prev];
       newSelected[index] = !newSelected[index];
@@ -51,9 +53,12 @@ export default () => {
         numbers={numbers}
         selectedCells={selectedCells}
         onCellPress={handleCellPress}
+        disabled={hasWon}
       />
       <TouchableOpacity style={styles.button} onPress={handleNewGame}>
-        <Text style={styles.buttonText}>New Game</Text>
+        <Text style={styles.buttonText}>
+          {hasWon ? "You Won! Play Again" : "New Game"}
+        </Text>
       </TouchableOpacity>
     </View>
   );

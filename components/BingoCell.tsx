@@ -1,16 +1,23 @@
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-type BingoCellProps = {
+interface BingoCellProps {
   number: number;
   isSelected: boolean;
   onPress: () => void;
-};
+  disabled?: boolean;
+}
 
-export const BingoCell = ({ number, isSelected, onPress }: BingoCellProps) => {
+export const BingoCell = ({
+  number,
+  isSelected,
+  onPress,
+  disabled = false,
+}: BingoCellProps) => {
   return (
     <TouchableOpacity
       style={[styles.cell, isSelected && styles.selectedCell]}
       onPress={onPress}
+      disabled={disabled}
     >
       <Text style={[styles.cellText, isSelected && styles.selectedText]}>
         {number}
