@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useState, useCallback } from "react";
-import { BingoBoard } from "@/components/BingoBoard";
+import { useState, useCallback, useEffect } from "react";
+import { BingoBoard } from "../components/BingoBoard";
+import { checkWinningLines } from "../utils/gameUtils";
 
 export default () => {
   const [numbers, setNumbers] = useState<number[]>(() =>
@@ -9,10 +10,12 @@ export default () => {
   const [selectedCells, setSelectedCells] = useState<boolean[]>(
     Array(25).fill(false)
   );
+  const [completedLines, setCompletedLines] = useState<number>(0);
 
   const handleNewGame = useCallback(() => {
     setNumbers((prev) => [...prev].sort(() => Math.random() - 0.5));
     setSelectedCells(Array(25).fill(false));
+    setCompletedLines(0);
   }, []);
 
   const handleCellPress = (index: number) => {
@@ -23,9 +26,28 @@ export default () => {
     });
   };
 
+  useEffect(() => {
+    const wins = checkWinningLines(selectedCells);
+    setCompletedLines(wins);
+  }, [selectedCells]);
+
+  const bingoText = "BINGO";
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>BINGO</Text>
+      <View style={styles.titleContainer}>
+        {bingoText.split("").map((letter, index) => (
+          <Text
+            key={index}
+            style={[
+              styles.titleLetter,
+              index < completedLines && styles.strikeThrough,
+            ]}
+          >
+            {letter}
+          </Text>
+        ))}
+      </View>
       <BingoBoard
         numbers={numbers}
         selectedCells={selectedCells}
@@ -46,11 +68,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
   },
-  title: {
+  titleContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  titleLetter: {
     fontSize: 48,
     fontWeight: "bold",
-    marginBottom: 20,
     color: "#2196F3",
+    marginHorizontal: 4,
+  },
+  strikeThrough: {
+    textDecorationLine: "line-through",
+    textDecorationStyle: "solid",
+    textDecorationColor: "#FF0000",
   },
   button: {
     backgroundColor: "#2196F3",
