@@ -1,50 +1,54 @@
-# Welcome to your Expo app 👋
+# Bingo Game App 🎮
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A vibe coded Bingo game built with Expo and React Native.
 
-## Get started
+## Getting Started
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
+1. Install dependencies:
 
    ```bash
-    npx expo start
+   yarn install
    ```
 
-In the output, you'll find options to open the app in a
+2. Start the development server:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   ```bash
+   yarn start
+   ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+3. Choose your platform:
+   - Press `i` for iOS simulator
+   - Press `a` for Android emulator
+   - Scan QR code with Expo Go app for physical devices
 
-## Get a fresh project
+## Game Rules
 
-When you're ready, run:
+1. Start a new game by pressing the "New Game" button
+2. Click on numbers to mark them
+3. Complete 5 lines (horizontal, vertical, or diagonal) to win
+4. When you win, the BINGO text will be struck through
+5. Start a new game after winning
 
-```bash
-npm run reset-project
-```
+## Tech Stack
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- Expo
+- React Native
+- TypeScript
+- React Native Animated API
+- Expo Router
 
-## Learn more
+## Development
 
-To learn more about developing your project with Expo, look at the following resources:
+The project uses a file-based routing structure:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- `/app`: Main application code
+- `/components`: Reusable UI components
+- `/utils`: Helper functions and game logic
 
-## Join the community
+## Contributing
 
-Join our community of developers creating universal apps.
+Feel free to open issues and submit pull requests!
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## License
+
+MIT License
