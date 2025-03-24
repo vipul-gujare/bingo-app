@@ -16,7 +16,7 @@ export const BingoBoard = ({
     <View style={styles.grid}>
       {numbers.map((number, index) => (
         <BingoCell
-          key={index}
+          key={`number-${number}-${index}`}
           number={number}
           isSelected={selectedCells[index]}
           onPress={() => onCellPress(index)}
