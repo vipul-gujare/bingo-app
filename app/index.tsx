@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from "react";
 import { BingoBoard } from "../components/BingoBoard";
 import { checkWinningLines } from "../utils/gameUtils";
 import { AnimatedBingoLetter } from "../components/AnimatedBingoLetter";
+import { WinConfetti } from "../components/WinConfetti";
 
 export default () => {
   const [numbers, setNumbers] = useState<number[]>(() =>
@@ -39,10 +40,11 @@ export default () => {
 
   return (
     <View style={styles.container}>
+      <WinConfetti isVisible={hasWon} />
       <View style={styles.titleContainer}>
         {bingoText.split("").map((letter, index) => (
           <AnimatedBingoLetter
-            key={index}
+            key={letter + index}
             letter={letter}
             isStriked={index < completedLines}
             delay={index * ANIMATION_DELAY}
